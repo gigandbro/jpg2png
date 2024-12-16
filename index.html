@@ -82,7 +82,9 @@
   </footer>
 
   <script>
-    let conversionCount = 0;
+    let conversionCount = localStorage.getItem('conversionCount') ? parseInt(localStorage.getItem('conversionCount')) : 0;
+
+    document.getElementById('conversionStats').textContent = `Files converted: ${conversionCount}`;
 
     function convertToPNG() {
       const input = document.getElementById('jpgInput');
@@ -109,6 +111,7 @@
 
             // Update conversion count
             conversionCount++;
+            localStorage.setItem('conversionCount', conversionCount);
             stats.textContent = `Files converted: ${conversionCount}`;
           };
           img.src = event.target.result;
