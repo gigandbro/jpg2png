@@ -1,4 +1,91 @@
-      reader.onload = function (event) {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://cdn.discordapp.com/attachments/1124286891110449294/1317872069655920700/Pixelion_2.png" />
+  <title>JPG to PNG Converter</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #FFA07A;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+      border: 2px solid #FFA07A;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    .button {
+      background-color: #FFA07A;
+      color: #121212;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .button:hover {
+      background-color: #FF8C69;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    footer a {
+      color: #FFA07A;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>JPG to PNG Converter</h1>
+  <div class="container">
+    <input type="file" id="jpgInput" accept="image/jpeg" />
+    <button class="button" onclick="convertToPNG()">Convert to PNG</button>
+    <a id="downloadLink" class="button" style="display: none;" download="converted.png">Download PNG</a>
+    <canvas id="canvas" style="display: none;"></canvas>
+  </div>
+
+  <footer>
+    Made by <a href="https://github.com/gigandbro/" target="_blank">gig</a> via &#129505;
+  </footer>
+
+  <script>
+    function convertToPNG() {
+      const input = document.getElementById('jpgInput');
+      const canvas = document.getElementById('canvas');
+      const downloadLink = document.getElementById('downloadLink');
+
+      if (input && input.files && input.files[0]) {
+        const file = input.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
           const img = new Image();
           img.onload = function () {
             canvas.width = img.width;
