@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="https://cdn.discordapp.com/attachments/1124286891110449294/1317872069655920700/Pixelion_2.png" />
+  <link rel="icon" href="https://cdn.discordapp.com/attachments/700786927867265145/1318252329908047933/1734366236361.png" />
   <title>JPG to PNG Converter</title>
   <style>
     body {
@@ -60,15 +60,43 @@
     footer a:hover {
       text-decoration: underline;
     }
+
+    .stats {
+      font-size: 16px;
+      margin-top: 10px;
+      color: #FFA07A;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    .logo span {
+      font-size: 20px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
+  <div class="logo">
+    <img src="https://cdn.discordapp.com/attachments/700786927867265145/1318252329908047933/1734366236361.png" alt="Site Logo">
+    <span>JPG to PNG Converter</span>
+  </div>
+
   <h1>JPG to PNG Converter</h1>
   <div class="container">
     <input type="file" id="jpgInput" accept="image/jpeg" />
     <button class="button" onclick="convertToPNG()">Convert to PNG</button>
     <a id="downloadLink" class="button" style="display: none;" download="converted.png">Download PNG</a>
     <canvas id="canvas" style="display: none;"></canvas>
+    <div class="stats" id="conversionStats">Files converted: 0</div>
   </div>
 
   <footer>
@@ -76,10 +104,13 @@
   </footer>
 
   <script>
+    let conversionCount = 0;
+
     function convertToPNG() {
       const input = document.getElementById('jpgInput');
       const canvas = document.getElementById('canvas');
       const downloadLink = document.getElementById('downloadLink');
+      const stats = document.getElementById('conversionStats');
 
       if (input && input.files && input.files[0]) {
         const file = input.files[0];
@@ -97,6 +128,10 @@
             const pngData = canvas.toDataURL('image/png');
             downloadLink.href = pngData;
             downloadLink.style.display = 'inline-block';
+
+            // Update conversion count
+            conversionCount++;
+            stats.textContent = `Files converted: ${conversionCount}`;
           };
           img.src = event.target.result;
         };
